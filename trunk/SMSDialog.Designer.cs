@@ -28,30 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mFormLayout = new System.Windows.Forms.FlowLayoutPanel();
+            this.mToLabel = new System.Windows.Forms.Label();
+            this.mMessageBox = new System.Windows.Forms.TextBox();
             this.mButtonLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.mCancelButton = new System.Windows.Forms.Button();
             this.mOkButton = new System.Windows.Forms.Button();
-            this.mToLabel = new System.Windows.Forms.Label();
-            this.mMessageBox = new System.Windows.Forms.TextBox();
-            this.mFormLayout.SuspendLayout();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.mButtonLayout.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // mFormLayout
+            // mToLabel
             // 
-            this.mFormLayout.AutoSize = true;
-            this.mFormLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.mFormLayout.Controls.Add(this.mToLabel);
-            this.mFormLayout.Controls.Add(this.mMessageBox);
-            this.mFormLayout.Controls.Add(this.mButtonLayout);
-            this.mFormLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mFormLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.mFormLayout.Location = new System.Drawing.Point(0, 0);
-            this.mFormLayout.Name = "mFormLayout";
-            this.mFormLayout.Padding = new System.Windows.Forms.Padding(5);
-            this.mFormLayout.Size = new System.Drawing.Size(284, 264);
-            this.mFormLayout.TabIndex = 2;
+            this.mToLabel.AutoSize = true;
+            this.mToLabel.Location = new System.Drawing.Point(13, 10);
+            this.mToLabel.Name = "mToLabel";
+            this.mToLabel.Size = new System.Drawing.Size(26, 13);
+            this.mToLabel.TabIndex = 3;
+            this.mToLabel.Text = "To: ";
+            // 
+            // mMessageBox
+            // 
+            this.mMessageBox.Location = new System.Drawing.Point(13, 26);
+            this.mMessageBox.Multiline = true;
+            this.mMessageBox.Name = "mMessageBox";
+            this.mMessageBox.Size = new System.Drawing.Size(233, 112);
+            this.mMessageBox.TabIndex = 4;
             // 
             // mButtonLayout
             // 
@@ -61,7 +63,7 @@
             this.mButtonLayout.Controls.Add(this.mCancelButton);
             this.mButtonLayout.Controls.Add(this.mOkButton);
             this.mButtonLayout.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.mButtonLayout.Location = new System.Drawing.Point(96, 144);
+            this.mButtonLayout.Location = new System.Drawing.Point(84, 149);
             this.mButtonLayout.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.mButtonLayout.Name = "mButtonLayout";
             this.mButtonLayout.Size = new System.Drawing.Size(162, 29);
@@ -87,24 +89,27 @@
             this.mOkButton.UseVisualStyleBackColor = true;
             this.mOkButton.Click += new System.EventHandler(this.HandleOkClick);
             // 
-            // mToLabel
+            // tableLayoutPanel1
             // 
-            this.mToLabel.AutoSize = true;
-            this.mToLabel.Location = new System.Drawing.Point(8, 5);
-            this.mToLabel.Name = "mToLabel";
-            this.mToLabel.Size = new System.Drawing.Size(26, 13);
-            this.mToLabel.TabIndex = 3;
-            this.mToLabel.Text = "To: ";
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.mButtonLayout, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.mMessageBox, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.mToLabel, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(259, 188);
+            this.tableLayoutPanel1.TabIndex = 3;
             // 
-            // mMessageBox
-            // 
-            this.mMessageBox.Location = new System.Drawing.Point(8, 21);
-            this.mMessageBox.Multiline = true;
-            this.mMessageBox.Name = "mMessageBox";
-            this.mMessageBox.Size = new System.Drawing.Size(250, 112);
-            this.mMessageBox.TabIndex = 4;
-            // 
-            // SMSForm
+            // SMSDialog
             // 
             this.AcceptButton = this.mOkButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,16 +117,16 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.mCancelButton;
-            this.ClientSize = new System.Drawing.Size(284, 264);
-            this.Controls.Add(this.mFormLayout);
+            this.ClientSize = new System.Drawing.Size(259, 188);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = global::GVDialer.Properties.Resources.ActiveIcon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SMSForm";
+            this.Name = "SMSDialog";
             this.Text = "Send SMS";
-            this.mFormLayout.ResumeLayout(false);
-            this.mFormLayout.PerformLayout();
             this.mButtonLayout.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,9 +136,9 @@
 
         private System.Windows.Forms.Button mCancelButton;
         private System.Windows.Forms.Button mOkButton;
-        private System.Windows.Forms.FlowLayoutPanel mFormLayout;
         private System.Windows.Forms.FlowLayoutPanel mButtonLayout;
         private System.Windows.Forms.Label mToLabel;
         private System.Windows.Forms.TextBox mMessageBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
