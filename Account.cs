@@ -72,6 +72,9 @@ namespace GoogleVoice
 
             try
             {
+                // Make sure we authenticated correctly
+                GetInboxCalls();
+
                 var inboxResponse = MakeRequest(MainUrl, "GET", null);
                 if (inboxResponse.StatusCode != HttpStatusCode.OK)
                 {
@@ -153,6 +156,7 @@ namespace GoogleVoice
             request.KeepAlive = false;
             request.ProtocolVersion = HttpVersion.Version10;
             request.Method = method;
+            request.UserAgent = "GVDialer/1.0";
             request.ContentType = "application/x-www-form-urlencoded";
 
             var cookieHeader = _cookies.GetCookieHeader(CookieUri);
@@ -302,7 +306,7 @@ namespace GoogleVoice
         {
             url = LogonUrl;
 
-            var postData = string.Format("Email={0}&Passwd={1}",
+            var postData = string.Format("voice&Email={0}&Passwd={1}",
                 HttpUtility.UrlEncode(_user), HttpUtility.UrlEncode(_password));
             data = Encoding.ASCII.GetBytes(postData);
 
