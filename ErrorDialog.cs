@@ -29,5 +29,11 @@ namespace GVDialer
             ((Control)sender).Visible = false;
             mDetailLabel.Visible = true;
         }
+
+        private void HandleOkClick(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            Close();
+        }
     }
 }
