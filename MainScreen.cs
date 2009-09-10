@@ -331,5 +331,11 @@ namespace GVDialer
                 }
             }
         }
+
+        private void HandleAboutClick(object sender, EventArgs e)
+        {
+            var form = new AboutDialog();
+            form.ShowDialog();
+        }
     }
 }

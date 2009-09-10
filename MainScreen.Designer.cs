@@ -45,6 +45,8 @@
             this.mSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mExitSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.mExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mSettingsSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.mAboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mPictureBox)).BeginInit();
             this.mContextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -78,11 +80,13 @@
             this.mCallMenuItem,
             this.mSmsMenuItem,
             this.mInboxMenuItem,
+            this.mSettingsSeparator,
             this.mSettingsMenuItem,
+            this.mAboutMenuItem,
             this.mExitSeparator,
             this.mExitMenuItem});
             this.mContextMenu.Name = "mContextMenu";
-            this.mContextMenu.Size = new System.Drawing.Size(153, 142);
+            this.mContextMenu.Size = new System.Drawing.Size(153, 170);
             this.mContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.HandleContextMenuOpening);
             // 
             // mCallMenuItem
@@ -178,6 +182,18 @@
             this.mExitMenuItem.Text = "E&xit";
             this.mExitMenuItem.Click += new System.EventHandler(this.HandleExitClick);
             // 
+            // mSettingsSeparator
+            // 
+            this.mSettingsSeparator.Name = "mSettingsSeparator";
+            this.mSettingsSeparator.Size = new System.Drawing.Size(149, 6);
+            // 
+            // mAboutMenuItem
+            // 
+            this.mAboutMenuItem.Name = "mAboutMenuItem";
+            this.mAboutMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mAboutMenuItem.Text = "About...";
+            this.mAboutMenuItem.Click += new System.EventHandler(this.HandleAboutClick);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,5 +234,7 @@
         private System.Windows.Forms.ToolStripMenuItem mSmsContactsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mSmsRecentMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mInboxMenuItem;
+        private System.Windows.Forms.ToolStripSeparator mSettingsSeparator;
+        private System.Windows.Forms.ToolStripMenuItem mAboutMenuItem;
     }
 }
