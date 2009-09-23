@@ -1,9 +1,10 @@
 ﻿using GoogleVoice;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace GVDialer
 {
@@ -65,11 +66,10 @@ namespace GVDialer
         {
             try
             {
-                var placedCalls = from call in this.account.GetPlacedCalls()["messages"].Children()
-                                  select call.Children().First();
+                var placedCalls = this.account.GetPlacedCalls().Root.Element("messages").Elements();
                 foreach (var call in placedCalls)
                 {
-                    AddRecent((string)call["displayNumber"], (string)call["phoneNumber"], mCallRecentMenuItem);
+                    AddRecent((string)call.Element("displayNumber"), (string)call.Element("phoneNumber"), mCallRecentMenuItem);
                 }
             }
             catch (Exception ex)
@@ -82,12 +82,10 @@ namespace GVDialer
         {
             try
             {
-                var json = this.account.GetSMSMessages();
-                var sentSMSs = from sms in json["messages"].Children()
-                                 select sms.Children().First();
+                var sentSMSs = this.account.GetSMSMessages().Root.Element("messages").Elements();
                 foreach (var sms in sentSMSs)
                 {
-                    AddRecent((string)sms["displayNumber"], (string)sms["phoneNumber"], mSmsRecentMenuItem);
+                    AddRecent((string)sms.Element("displayNumber"), (string)sms.Element("phoneNumber"), mSmsRecentMenuItem);
                 }
             }
             catch (Exception ex)
@@ -100,12 +98,12 @@ namespace GVDialer
         {
             try
             {
-                var json = this.account.GetContacts();
-                var contacts = from contact in json["messages"].Children()
-                               select contact.Children().First();
+                var data = this.account.GetContacts();
+                var contacts = from contact in data.Root.Element("messages").Elements()
+                               select contact.Elements().First();
                 foreach (var contact in contacts)
                 {
-                    AddContact((string)contact["displayNumber"], (string)contact["phoneNumber"]);
+                    AddContact((string)contact.Element("displayNumber"), (string)contact.Element("phoneNumber"));
                 }
             }
             catch (Exception ex)
