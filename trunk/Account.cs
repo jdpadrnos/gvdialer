@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Xml;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Xml.Linq;
 
 namespace GoogleVoice
 {
@@ -99,7 +99,7 @@ namespace GoogleVoice
             return _loggedin;
         }
 
-        private JObject GetData(string url)
+        private XDocument GetData(string url)
         {
             EnsureLoggedIn();
 
@@ -116,14 +116,8 @@ namespace GoogleVoice
                 document.LoadXml(xml);
 
                 var json = document.SelectSingleNode("/response/json").FirstChild.InnerText;
-
-                using (var stringReader = new StringReader(json))
-                {
-                    using (var jsonReader = new JsonTextReader(stringReader))
-                    {
-                        return JObject.Load(jsonReader);
-                    }
-                }
+                var jsonStream = new MemoryStream(UTF8Encoding.Default.GetBytes(json));
+                return ParseJson(jsonStream);
             }
         }
 
@@ -220,84 +214,88 @@ namespace GoogleVoice
             }
         }
 
-        JObject VerifyCommand(HttpWebResponse response)
+        XDocument VerifyCommand(HttpWebResponse response)
         {
             if (response.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception(string.Format("Bad response: {0}", response.StatusCode));
             }
 
-            using (var stream = new StreamReader(response.GetResponseStream()))
+            var result = ParseJson(response.GetResponseStream());
+            if (!(bool)result.Root.Element("ok"))
             {
-                using (var reader = new JsonTextReader(stream))
-                {
-                    var result = JObject.Load(reader);
-                    if (!(bool)result["ok"])
-                    {
-                        throw new Exception(
-                            string.Format("Bad status, code {0}", (int)result["data"]["code"]));
-                    }
-                    return result;
-                }
+                throw new Exception(
+                    string.Format("Bad status, code {0}",
+                        (int)result.Root.Element("data").Element("code")));
+            }
+            return result;
+        }
+
+        XDocument ParseJson(Stream stream)
+        {
+            using (var reader = JsonReaderWriterFactory.CreateJsonReader(stream, XmlDictionaryReaderQuotas.Max))
+            {
+                var result = XDocument.Load(reader);
+                return result;
             }
         }
 
-        public JObject GetPlacedCalls()
+        public XDocument GetPlacedCalls()
         {
             return GetData(PlacedCallsUrl);
         }
 
-        public JObject GetReceivedCalls()
+        public XDocument GetReceivedCalls()
         {
             return GetData(ReceivedCallsUrl);
         }
 
-        public JObject GetMissedCalls()
+        public XDocument GetMissedCalls()
         {
             return GetData(MissedCallsUrl);
         }
 
-        public JObject GetAllCalls()
+        public XDocument GetAllCalls()
         {
             return GetData(AllCallsUrl);
         }
 
-        public JObject GetVoicemails()
+        public XDocument GetVoicemails()
         {
             return GetData(VoicemailUrl);
         }
 
-        public JObject GetSMSMessages()
+        public XDocument GetSMSMessages()
         {
             return GetData(SMSMessagesUrl);
         }
 
-        public JObject GetRecordedCalls()
+        public XDocument GetRecordedCalls()
         {
             return GetData(RecordedCallsUrl);
         }
 
-        public JObject GetStarredCalls()
+        public XDocument GetStarredCalls()
         {
             return GetData(StarredCallsUrl);
         }
 
-        public JObject GetInboxCalls()
+        public XDocument GetInboxCalls()
         {
             return GetData(InboxUrl);
         }
 
-        public JObject GetSpamCalls()
+        public XDocument GetSpamCalls()
         {
             return GetData(SpamUrl);
         }
 
-        public JObject GetTrashCalls()
+        public XDocument GetTrashCalls()
         {
             return GetData(TrashUrl);
         }
 
-        public JObject GetContacts()
+        public XDocument GetContacts()
         {
             return GetData(ContactsUrl);
         }
