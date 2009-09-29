@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
@@ -18,7 +19,7 @@ namespace GoogleVoice
         CookieContainer _cookies;
         string _rnr;
 
-        static string LogonUrl = "https://www.google.com/accounts/ServiceLoginAuth";
+        static string LogonUrl = "https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral";
         static string LogoutUrl = "https://www.google.com/voice/account/signout";
         static string MainUrl = "https://www.google.com/voice";
         static string CallUrl = "https://www.google.com/voice/call/connect";
@@ -37,8 +38,12 @@ namespace GoogleVoice
         static string ContactsUrl = "https://www.google.com/voice/inbox/recent/contacts/";
         static Uri CookieUri = new Uri("https://www.google.com");
 
-        static string RNRStartString = "<input name=\"_rnr_se\" type=\"hidden\" value=";
-        static string RNREndString = "\"/>";
+        static Regex RNRExpression = new Regex(
+            "name=\"_rnr_se\"\\s+(?:type=\"hidden\"\\s+)?value=\"([^\"]*)\"", RegexOptions.IgnoreCase);
+
+        static Regex GALXExpression = new Regex(
+            "name=\"GALX\"\\s+(?:type=\"hidden\"\\s+)?value=\"([^\"]*)\"", RegexOptions.IgnoreCase);
+
         static int SMSLength = 159;
 
         public Account(string user, string password)
@@ -60,8 +65,16 @@ namespace GoogleVoice
 
             _cookies = new CookieContainer();
 
-            var data = string.Format("Email={0}&Passwd={1}", 
-                HttpUtility.UrlEncode(_user), HttpUtility.UrlEncode(_password));
+            var initialResponse = MakeRequest(LogonUrl, "GET", null);
+            var galx = string.Empty;
+            using (var reader = new StreamReader(initialResponse.GetResponseStream()))
+            {
+                var response = reader.ReadToEnd();
+                galx = ExtractText(response, GALXExpression);
+            }
+
+            var data = string.Format("Email={0}&Passwd={1}&GALX={2}&rmShown=1&service=grandcentral", 
+                HttpUtility.UrlEncode(_user), HttpUtility.UrlEncode(_password), galx);
             var logonResponse = MakeRequest(LogonUrl, "POST", data);
             if (logonResponse.StatusCode != HttpStatusCode.OK)
             {
@@ -85,9 +98,7 @@ namespace GoogleVoice
                 {
                     var inbox = inboxReader.ReadToEnd();
 
-                    var startIndex = (inbox.IndexOf(RNRStartString) + RNRStartString.Length) + 1;
-                    var endIndex = inbox.IndexOf(RNREndString, startIndex);
-                    _rnr = inbox.Substring(startIndex, endIndex - startIndex);
+                    _rnr = ExtractText(inbox, RNRExpression);
                 }
             }
             catch(Exception inner)
@@ -97,6 +108,12 @@ namespace GoogleVoice
             }
 
             return _loggedin;
+        }
+
+        private string ExtractText(string text, Regex expression)
+        {
+            var match = expression.Match(text);
+            return match.Groups[1].Value;
         }
 
         private XDocument GetData(string url)
