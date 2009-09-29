@@ -6,4 +6,11 @@ GVDialer is a Windows tray application that provides a front end to various Goog
   * Fast access to contacts and recently used numbers
   * Runs independent of internet browser
 
-_It appears that Google changed their login process.  For the moment, GVDialer is unable to login to your Google Voice account._
+Place a voice call
+http://gvdialer.googlecode.com/svn/wiki/Overview.attachments/Call.png
+
+Send an SMS
+http://gvdialer.googlecode.com/svn/wiki/Overview.attachments/SMS.png
+
+Change account settings
+http://gvdialer.googlecode.com/svn/wiki/Overview.attachments/Settings.png
