@@ -195,10 +195,12 @@ namespace GVDialer
             var call = CreateEntry(caption, number);
             mCallContactsMenuItem.DropDownItems.Add(call);
             mCallContactsMenuItem.Enabled = true;
+            mCallContactsMenuItem.Visible = true;
 
             var sms = CreateEntry(caption, number);
             mSmsContactsMenuItem.DropDownItems.Add(sms);
             mSmsContactsMenuItem.Enabled = true;
+            mSmsContactsMenuItem.Visible = true;
         }
 
         private ToolStripMenuItem CreateEntry(string caption, string number)
