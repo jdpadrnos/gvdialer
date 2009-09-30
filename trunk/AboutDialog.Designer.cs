@@ -33,6 +33,7 @@
             this.mOkButton = new System.Windows.Forms.Button();
             this.mTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.mLogoBox = new System.Windows.Forms.PictureBox();
+            this.mVersionLabel = new System.Windows.Forms.Label();
             this.mTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mLogoBox)).BeginInit();
             this.SuspendLayout();
@@ -43,7 +44,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.mMessageLabel.AutoSize = true;
-            this.mMessageLabel.Location = new System.Drawing.Point(13, 71);
+            this.mMessageLabel.Location = new System.Drawing.Point(13, 91);
             this.mMessageLabel.Name = "mMessageLabel";
             this.mMessageLabel.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
             this.mMessageLabel.Size = new System.Drawing.Size(233, 23);
@@ -56,7 +57,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.mDetailLink.AutoSize = true;
-            this.mDetailLink.Location = new System.Drawing.Point(13, 94);
+            this.mDetailLink.Location = new System.Drawing.Point(13, 114);
             this.mDetailLink.Name = "mDetailLink";
             this.mDetailLink.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.mDetailLink.Size = new System.Drawing.Size(233, 23);
@@ -69,7 +70,7 @@
             // 
             this.mOkButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.mOkButton.AutoSize = true;
-            this.mOkButton.Location = new System.Drawing.Point(92, 120);
+            this.mOkButton.Location = new System.Drawing.Point(92, 140);
             this.mOkButton.Name = "mOkButton";
             this.mOkButton.Size = new System.Drawing.Size(75, 23);
             this.mOkButton.TabIndex = 0;
@@ -83,20 +84,22 @@
             this.mTableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.mTableLayoutPanel.ColumnCount = 1;
             this.mTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mTableLayoutPanel.Controls.Add(this.mOkButton, 0, 3);
-            this.mTableLayoutPanel.Controls.Add(this.mDetailLink, 0, 2);
-            this.mTableLayoutPanel.Controls.Add(this.mMessageLabel, 0, 1);
+            this.mTableLayoutPanel.Controls.Add(this.mOkButton, 0, 4);
+            this.mTableLayoutPanel.Controls.Add(this.mDetailLink, 0, 3);
+            this.mTableLayoutPanel.Controls.Add(this.mMessageLabel, 0, 2);
             this.mTableLayoutPanel.Controls.Add(this.mLogoBox, 0, 0);
+            this.mTableLayoutPanel.Controls.Add(this.mVersionLabel, 0, 1);
             this.mTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.mTableLayoutPanel.Name = "mTableLayoutPanel";
             this.mTableLayoutPanel.Padding = new System.Windows.Forms.Padding(10);
-            this.mTableLayoutPanel.RowCount = 4;
+            this.mTableLayoutPanel.RowCount = 5;
             this.mTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.mTableLayoutPanel.Size = new System.Drawing.Size(259, 151);
+            this.mTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.mTableLayoutPanel.Size = new System.Drawing.Size(259, 172);
             this.mTableLayoutPanel.TabIndex = 1;
             // 
             // mLogoBox
@@ -109,6 +112,16 @@
             this.mLogoBox.TabIndex = 3;
             this.mLogoBox.TabStop = false;
             // 
+            // mVersionLabel
+            // 
+            this.mVersionLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.mVersionLabel.AutoSize = true;
+            this.mVersionLabel.Location = new System.Drawing.Point(107, 71);
+            this.mVersionLabel.Name = "mVersionLabel";
+            this.mVersionLabel.Size = new System.Drawing.Size(45, 13);
+            this.mVersionLabel.TabIndex = 4;
+            this.mVersionLabel.Text = "Version ";
+            // 
             // AboutDialog
             // 
             this.AcceptButton = this.mOkButton;
@@ -117,7 +130,7 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(259, 151);
+            this.ClientSize = new System.Drawing.Size(259, 172);
             this.Controls.Add(this.mTableLayoutPanel);
             this.Icon = global::GVDialer.Properties.Resources.ActiveIcon;
             this.MaximizeBox = false;
@@ -142,5 +155,6 @@
         private System.Windows.Forms.LinkLabel mDetailLink;
         private System.Windows.Forms.TableLayoutPanel mTableLayoutPanel;
         private System.Windows.Forms.PictureBox mLogoBox;
+        private System.Windows.Forms.Label mVersionLabel;
     }
 }
