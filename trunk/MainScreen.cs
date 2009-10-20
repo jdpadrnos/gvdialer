@@ -1,6 +1,7 @@
 ﻿using GoogleVoice;
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
@@ -16,6 +17,9 @@ namespace GVDialer
         {
             InitializeComponent();
             mPictureBox.Size = mPictureBox.Image.Size;
+
+            HandleBoxTextChanged(mCallBox, EventArgs.Empty);
+            HandleBoxTextChanged(mSmsBox, EventArgs.Empty);
 
             this.account = null;
         }
@@ -284,7 +288,7 @@ namespace GVDialer
         {
             if (e.KeyCode == Keys.Enter)
             {
-                var box = (ToolStripTextBox)sender;
+                var box = sender as ToolStripTextBox;
                 string number = box.Text;
 
                 if (box.OwnerItem == mCallMenuItem)
@@ -337,5 +341,25 @@ namespace GVDialer
             var form = new AboutDialog();
             form.ShowDialog();
         }
+
+        private void HandleBoxTextChanged(object sender, EventArgs e)
+        {
+            var box = sender as ToolStripTextBox;
+            if(box.Text == string.Empty)
+            {
+                var cue = "Enter number";
+                SendMessage(box.Control.Handle, EM_SETCUEBANNER, 0, cue);
+            }
+            else
+            {
+                SendMessage(box.Control.Handle, EM_SETCUEBANNER, 0, string.Empty);
+            }
+        }
+
+        private const int EM_SETCUEBANNER = 0x1501;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+
     }
 }
