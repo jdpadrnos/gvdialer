@@ -87,7 +87,6 @@
             this.mExitMenuItem});
             this.mContextMenu.Name = "mContextMenu";
             this.mContextMenu.Size = new System.Drawing.Size(153, 170);
-            this.mContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.HandleContextMenuOpening);
             // 
             // mCallMenuItem
             // 
@@ -99,6 +98,7 @@
             this.mCallMenuItem.Name = "mCallMenuItem";
             this.mCallMenuItem.Size = new System.Drawing.Size(152, 22);
             this.mCallMenuItem.Text = "&Call";
+            this.mCallMenuItem.DropDownOpening += new System.EventHandler(this.HandleCallOpening);
             // 
             // mCallContactsMenuItem
             // 
@@ -133,6 +133,7 @@
             this.mSmsMenuItem.Name = "mSmsMenuItem";
             this.mSmsMenuItem.Size = new System.Drawing.Size(152, 22);
             this.mSmsMenuItem.Text = "Send &SMS";
+            this.mSmsMenuItem.DropDownOpening += new System.EventHandler(this.HandleSmsOpening);
             // 
             // mSmsContactsMenuItem
             // 
