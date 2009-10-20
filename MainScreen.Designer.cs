@@ -121,6 +121,7 @@
             this.mCallBox.Size = new System.Drawing.Size(100, 23);
             this.mCallBox.ToolTipText = "Enter phone number";
             this.mCallBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.HandleBoxKeyUp);
+            this.mCallBox.TextChanged += new System.EventHandler(this.HandleBoxTextChanged);
             // 
             // mSmsMenuItem
             // 
