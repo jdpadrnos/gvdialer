@@ -18,9 +18,6 @@ namespace GVDialer
             InitializeComponent();
             mPictureBox.Size = mPictureBox.Image.Size;
 
-            HandleBoxTextChanged(mCallBox, EventArgs.Empty);
-            HandleBoxTextChanged(mSmsBox, EventArgs.Empty);
-
             this.account = null;
         }
 
@@ -313,12 +310,6 @@ namespace GVDialer
             form.Show();
         }
 
-        private void HandleContextMenuOpening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            mCallBox.Text = string.Empty;
-            mSmsBox.Text = string.Empty;
-        }
-
         private void HandleTimerTick(object sender, EventArgs e)
         {
             mTimer.Enabled = false;
@@ -334,6 +325,18 @@ namespace GVDialer
                     Login();
                 }
             }
+        }
+
+        private void HandleCallOpening(object sender, EventArgs e)
+        {
+            mCallBox.Text = string.Empty;
+            HandleBoxTextChanged(mCallBox, EventArgs.Empty);
+        }
+
+        private void HandleSmsOpening(object sender, EventArgs e)
+        {
+            mSmsBox.Text = string.Empty;
+            HandleBoxTextChanged(mSmsBox, EventArgs.Empty);
         }
 
         private void HandleAboutClick(object sender, EventArgs e)
