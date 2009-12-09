@@ -229,11 +229,11 @@ namespace GVDialer
 
             var numeric = result.ToString();
             var offset = -1;
-            if( numeric.Length == 9)
+            if (numeric.Length == 10)
             {
                 offset = 0;
             }
-            else if (numeric.Length == 10 && numeric[0] == '1')
+            else if (numeric.Length == 11 && numeric[0] == '1')
             {
                 offset = 1;
             }
