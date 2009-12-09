@@ -18,6 +18,10 @@ namespace GVDialer
             InitializeComponent();
             mPictureBox.Size = mPictureBox.Image.Size;
 
+            var cue = "Enter number";
+            SendMessage(mCallBox.Control.Handle, EM_SETCUEBANNER, 0, cue);
+            SendMessage(mSmsBox.Control.Handle, EM_SETCUEBANNER, 0, cue);
+
             this.account = null;
         }
 
@@ -330,33 +334,17 @@ namespace GVDialer
         private void HandleCallOpening(object sender, EventArgs e)
         {
             mCallBox.Text = string.Empty;
-            HandleBoxTextChanged(mCallBox, EventArgs.Empty);
         }
 
         private void HandleSmsOpening(object sender, EventArgs e)
         {
             mSmsBox.Text = string.Empty;
-            HandleBoxTextChanged(mSmsBox, EventArgs.Empty);
         }
 
         private void HandleAboutClick(object sender, EventArgs e)
         {
             var form = new AboutDialog();
             form.ShowDialog();
-        }
-
-        private void HandleBoxTextChanged(object sender, EventArgs e)
-        {
-            var box = sender as ToolStripTextBox;
-            if(box.Text == string.Empty)
-            {
-                var cue = "Enter number";
-                SendMessage(box.Control.Handle, EM_SETCUEBANNER, 0, cue);
-            }
-            else
-            {
-                SendMessage(box.Control.Handle, EM_SETCUEBANNER, 0, string.Empty);
-            }
         }
 
         private const int EM_SETCUEBANNER = 0x1501;
