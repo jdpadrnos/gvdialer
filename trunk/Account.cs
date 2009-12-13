@@ -207,7 +207,7 @@ namespace GoogleVoice
         {
             EnsureLoggedIn();
 
-            var data = string.Format("outgoingNumber={0}&forwardingNumber={1}&_rnr_se={2}",
+            var data = string.Format("outgoingNumber={0}&forwardingNumber={1}&_rnr_se={2}&phoneType=2",
                 HttpUtility.UrlEncode(SanitizeNumber(dest)), HttpUtility.UrlEncode(SanitizeNumber(source)), HttpUtility.UrlEncode(_rnr));
             var response = MakeRequest(CallUrl, "POST", data);
             VerifyCommand(response);
