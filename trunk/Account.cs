@@ -19,7 +19,8 @@ namespace GoogleVoice
         CookieContainer _cookies;
         string _rnr;
 
-        static string LogonUrl = "https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral";
+        static string LogonLandingUrl = "https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral";
+        static string LogonPostUrl = "https://accounts.google.com/ServiceLoginAuth";
         static string LogoutUrl = "https://www.google.com/voice/account/signout";
         static string MainUrl = "https://www.google.com/voice";
         static string CallUrl = "https://www.google.com/voice/call/connect";
@@ -65,7 +66,7 @@ namespace GoogleVoice
 
             _cookies = new CookieContainer();
 
-            var initialResponse = MakeRequest(LogonUrl, "GET", null);
+            var initialResponse = MakeRequest(LogonLandingUrl, "GET", null);
             var galx = string.Empty;
             using (var reader = new StreamReader(initialResponse.GetResponseStream()))
             {
@@ -75,7 +76,7 @@ namespace GoogleVoice
 
             var data = string.Format("Email={0}&Passwd={1}&GALX={2}&rmShown=1&service=grandcentral", 
                 HttpUtility.UrlEncode(_user), HttpUtility.UrlEncode(_password), galx);
-            var logonResponse = MakeRequest(LogonUrl, "POST", data);
+            var logonResponse = MakeRequest(LogonPostUrl, "POST", data);
             if (logonResponse.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception(string.Format("Could not login: {0}", logonResponse.StatusCode));
@@ -319,7 +320,7 @@ namespace GoogleVoice
 
         public void GetInboxUrl(out string url, out byte[] data, out string headers)
         {
-            url = LogonUrl;
+            url = LogonPostUrl;
 
             var postData = string.Format("voice&Email={0}&Passwd={1}",
                 HttpUtility.UrlEncode(_user), HttpUtility.UrlEncode(_password));

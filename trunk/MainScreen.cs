@@ -300,6 +300,7 @@ namespace GVDialer
                 {
                     SMS(number);
                 }
+                mContextMenu.Hide();
             }
         }
 
