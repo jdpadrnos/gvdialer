@@ -1,5 +1,7 @@
 #summary GVDialer Overview
 
+_*Google has changed the way the login works for Google Voice, and I haven't had the chance to update GVDialer.  Unfortunately, that means that GVDialer is not currently working.*_
+
 == GVDialer ==
 GVDialer is a Windows tray application that provides a front end to various Google Voice features.
 
